@@ -6,47 +6,78 @@ Friday
 
 Pseudo Code
 
-1 make square 25 x 25 asterisc long
-2 each asterisc is a random number     
-3 limit random number from 1 to 10
-4 each try the random number is reduced by 2 until reaching one and then back to 10
-5 the asteriscs around the one picked are to be taken out
-6 random asteriscs are mines, if one's hit, game over
+1 make square 20 x 20 asterisc long *
+2 each asterisc is a random number  *    
+3 limit random number from 1 to 10   *  
+4 the asteriscs around the one picked are to be taken out *
+5 random asteriscs are mines, if one's hit, game over
 """
 
 import random
+from syslog import LOG_EMERG
 
 
-class Asterisc:
+class Main:
 
     blueprint = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-    for i in range(19):
+    for i in range(20):
         new = blueprint
-        new[i].append('*')
-        for i in range(19):
+        new[i].append('M')
+        for i in range(20):
             new = blueprint
-            new[i].append('*')
-        
+            new[i].append('M')
+    
+    def verifier(num):
+        num = int(num)
+        if num > 20:
+            raise Exception("Error number should be smaller than 20")
+        elif num < 0:
+            raise Exception("Error number should be bigger than 0")
+        else:
+            return num
+    
+    def randomnum():
+        for i in range(10):
+            i += 1
+            i+1
+            randnum = random.randint(1,i)
+        return randnum
 
-    def reset(self):
-        for i in range(19):
-            new = self.blueprint
-            new[i].append('*')
-            for i in range(19):
-                new = self.blueprint
-                new[i].append('*')
-        return self.blueprint
-
-    def random_number(x):
-        result = random.randrange(0,x,2)
-        return result
 # --------------------------------------
 
+star = Main.blueprint
+    
+
+def surround(y,x):
+    ran = Main.randomnum()
+    if x + ran > 20 or y + ran >20:
+        for i in range(ran):
+            x -= 1
+            star[y][x] = '░'
+        for i in range(ran):
+            y -= 1
+            star[y][x] = '░'
+        for i in range(ran):
+            x -= 1
+            y -= 1
+            star[y][x] = '░'
+    elif x + ran < 20 or y + ran < 20:
+        for i in range(ran):
+            x += 1
+            star[y][x] = '░'
+        for i in range(ran):
+            y += 1
+            star[y][x] = '░'
+        for i in range(ran):
+            x += 1
+            y += 1
+            star[y][x] = '░'
+
 def background(y,x):
-    star = Asterisc.blueprint
     y = int(y)
     x = int(x)
-    star[y][x]= 'X'
+    star[y][x]= '■'
+    surround(y,x)
     print("""
 ███╗░░░███╗██╗███╗░░██╗███████╗░██████╗░██╗░░░░░░░██╗███████╗███████╗██████╗░███████╗██████╗░
 ████╗░████║██║████╗░██║██╔════╝██╔════╝░██║░░██╗░░██║██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗
@@ -55,7 +86,7 @@ def background(y,x):
 ██║░╚═╝░██║██║██║░╚███║███████╗██████╔╝░░╚██╔╝░╚██╔╝░███████╗███████╗██║░░░░░███████╗██║░░██║
 ╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚══════╝╚═════╝░░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝╚═╝░░░░░╚══════╝╚═╝░░╚═╝
     """)
-    for i in range(len(star)-1):
+    for i in range(len(star)):
         array = star
         print(array[i])
     print("""
@@ -63,36 +94,32 @@ def background(y,x):
 ╰━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━╯
     """)
 
+def find(lst):
+    x = [x for x in lst if '░' in x][0]
+    print(lst.index(x),x.index('░'))
 
-def verifier(num):
-    num = int(num)
-    if num > 20:
-        raise Exception("Error number should be smaller than 19")
-    elif num < 0:
-        raise Exception("Error number should be bigger than 0")
-    else:
-        return num
+
 
 def shot():
-    y = input("Select by coordinate Y: (from 0 to 19)\n")
-    y = verifier(y)
-    x = input("Select by coordinate X: (from 0 to 19)\n")
-    x = verifier(x)
+    y = input("Select by coordinate Y: (from 19 to 0)\n")
+    y = Main.verifier(y)
+    x = input("Select by coordinate X: (from 20 to 0)\n")
+    x = Main.verifier(x)
     background(y,x)
-
-again = True
+    find(star)
+  
 
 shot()
 
-while again == True:
+
+
+while True:
     ans = input("Another one? [y] [n]\n")
     if ans == 'y':
         shot()
     elif ans == 'n':
         print("Goodbye!")
         break
-
-
 
 
 
