@@ -103,8 +103,8 @@ def find(lst):
     new_lst = np.array(lst)
     var = '░'
     indices = np.where(new_lst == var)
-    print(indices)
-    
+    result = list(zip(indices[0],indices[1]))
+    print(result)
 
 
 
