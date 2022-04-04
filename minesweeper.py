@@ -14,7 +14,7 @@ Pseudo Code
 """
 
 import random
-from syslog import LOG_EMERG
+import numpy as np
 
 
 class Main:
@@ -50,7 +50,7 @@ star = Main.blueprint
 
 def surround(y,x):
     ran = Main.randomnum()
-    if x + ran > 20 or y + ran >20:
+    if x + ran > 19 or y + ran >19:
         for i in range(ran):
             x -= 1
             star[y][x] = '░'
@@ -61,7 +61,7 @@ def surround(y,x):
             x -= 1
             y -= 1
             star[y][x] = '░'
-    elif x + ran < 20 or y + ran < 20:
+    elif x + ran < 19 or y + ran < 19:
         for i in range(ran):
             x += 1
             star[y][x] = '░'
@@ -94,9 +94,17 @@ def background(y,x):
 ╰━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━╯
     """)
 
+# def find(lst):
+#     indices = [i for i, x in enumerate(lst) if x == '░']
+#     print(indices)
+    #need to find a way to iterate this through all of the dimensions
+
 def find(lst):
-    x = [x for x in lst if '░' in x][0]
-    print(lst.index(x),x.index('░'))
+    new_lst = np.array(lst)
+    var = '░'
+    indices = np.where(new_lst == var)
+    print(indices)
+    
 
 
 
@@ -106,7 +114,8 @@ def shot():
     x = input("Select by coordinate X: (from 20 to 0)\n")
     x = Main.verifier(x)
     background(y,x)
-    find(star)
+    find(star) # this only works if you specify the dimension i.e. star[y] or star[x]
+    
   
 
 shot()
