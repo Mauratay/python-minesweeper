@@ -94,17 +94,17 @@ def background(y,x):
 ╰━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━╯
     """)
 
-# def find(lst):
-#     indices = [i for i, x in enumerate(lst) if x == '░']
-#     print(indices)
-    #need to find a way to iterate this through all of the dimensions
 
 def find(lst):
     new_lst = np.array(lst)
     var = '░'
     indices = np.where(new_lst == var)
     result = list(zip(indices[0],indices[1]))
-    print(result)
+    output = []
+    for element in result:
+        output.append(list(element))
+    print(output)
+    
 
 
 
@@ -114,7 +114,7 @@ def shot():
     x = input("Select by coordinate X: (from 20 to 0)\n")
     x = Main.verifier(x)
     background(y,x)
-    find(star) # this only works if you specify the dimension i.e. star[y] or star[x]
+    find(star) 
     
   
 
