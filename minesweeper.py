@@ -36,10 +36,10 @@ class Main:
         else:
             return num
     
-    def randomnum():
-        for i in range(10):
+    def randomnum(x):
+        for i in range(x):
             i += 1
-            i+1
+            i + 1
             randnum = random.randint(1,i)
         return randnum
 
@@ -47,37 +47,50 @@ class Main:
 
 star = Main.blueprint
     
+def lefting(z):
+    ran = Main.randomnum(10)
+    if z + ran > 20:
+        for i in range(ran):
+            z -= 1
+        return z
 
 def surround(y,x):
-    ran = Main.randomnum()
-    if x + ran > 19 or y + ran >19:
+    ran = Main.randomnum(10)
+    if x + ran > 20 and y + ran > 19:
         for i in range(ran):
-            x -= 1
-            star[y][x] = '░'
+            while x and y > 0 and x < 20 and y < 19:
+                x -= 1
+                star[y][x] = '░'
         for i in range(ran):
-            y -= 1
-            star[y][x] = '░'
+            while y and x > 0:
+                y -= 1
+                star[y][x] = '░'
         for i in range(ran):
-            x -= 1
-            y -= 1
-            star[y][x] = '░'
-    elif x + ran < 19 or y + ran < 19:
+            while x and y > 0 and x < 20 and y < 19:
+                x -= 1
+                y -= 1
+                star[y][x] = '░'
+    elif x + ran < 20 and y + ran < 19:
         for i in range(ran):
-            x += 1
-            star[y][x] = '░'
+            while x < 20 and y < 19:
+                x += 1
+                star[y][x] = '░'
         for i in range(ran):
-            y += 1
-            star[y][x] = '░'
-        for i in range(ran):
-            x += 1
-            y += 1
-            star[y][x] = '░'
+            while y < 19 and x < 20:
+                y += 1
+                star[y][x] = '░'
+            while y < 19 and x < 20:
+                for i in range(ran):
+                    x += 1
+                    y += 1
+                    star[y][x] = '░'
 
 def background(y,x):
     y = int(y)
     x = int(x)
     star[y][x]= '■'
     surround(y,x)
+#------------------------------------------------------------------------------------------
     print("""
 ███╗░░░███╗██╗███╗░░██╗███████╗░██████╗░██╗░░░░░░░██╗███████╗███████╗██████╗░███████╗██████╗░
 ████╗░████║██║████╗░██║██╔════╝██╔════╝░██║░░██╗░░██║██╔════╝██╔════╝██╔══██╗██╔════╝██╔══██╗
@@ -86,13 +99,16 @@ def background(y,x):
 ██║░╚═╝░██║██║██║░╚███║███████╗██████╔╝░░╚██╔╝░╚██╔╝░███████╗███████╗██║░░░░░███████╗██║░░██║
 ╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚══════╝╚═════╝░░░░╚═╝░░░╚═╝░░╚══════╝╚══════╝╚═╝░░░░░╚══════╝╚═╝░░╚═╝
     """)
+#------------------------------------------------------------------------------------------
     for i in range(len(star)):
         array = star
         print(array[i])
+#------------------------------------------------------------------------------------------
     print("""
 ╭━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━╮
 ╰━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━╯
     """)
+
 
 
 def find(lst):
@@ -104,9 +120,19 @@ def find(lst):
     for element in result:
         output.append(list(element))
     print(output)
+    comparelst = [[]]
+    randomx = Main.randomnum(20)
+    randomy = Main.randomnum(20)
+    print("randomx is: "+str(randomx))
+    print("randomy is: "+str(randomy))
+    comparelst[0].append(randomx)
+    comparelst[0].append(randomy)
+    for elem in comparelst:
+        if elem in output:
+            print(elem)
+        else:
+            print("no mines")
     
-
-
 
 def shot():
     y = input("Select by coordinate Y: (from 19 to 0)\n")
