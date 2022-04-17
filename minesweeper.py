@@ -1,18 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-Deadline:
-Friday
-
-Pseudo Code
-
-1 make square 20 x 20 asterisc long *
-2 each asterisc is a random number  *    
-3 limit random number from 1 to 10   *  
-4 the asteriscs around the one picked are to be taken out *
-5 random asteriscs are mines, if one's hit, game over
-"""
-
 import random
 import numpy as np
 
@@ -109,7 +96,11 @@ def background(y,x):
 ╰━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━╯
     """)
 
-
+def mining(a,b):
+    star[a][b] = 'Ø'
+    for i in range(len(star)):
+        array = star
+        print(array[i])
 
 def find(lst):
     new_lst = np.array(lst)
@@ -117,22 +108,34 @@ def find(lst):
     indices = np.where(new_lst == var)
     result = list(zip(indices[0],indices[1]))
     output = []
+
     for element in result:
         output.append(list(element))
-    print(output)
+
     comparelst = [[]]
-    randomx = Main.randomnum(20)
-    randomy = Main.randomnum(20)
-    print("randomx is: "+str(randomx))
-    print("randomy is: "+str(randomy))
+    randomx = Main.randomnum(5)
+    randomy = Main.randomnum(5)
+
+
     comparelst[0].append(randomx)
     comparelst[0].append(randomy)
+
     for elem in comparelst:
         if elem in output:
-            print(elem)
+            mining(elem[0],elem[1])
+
+            print("""
+ ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
+██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
+██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
+██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗
+╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║
+ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
+            """)
+            return "gameover"     
+
         else:
-            print("no mines")
-    
+            print("No mines, keep going!")
 
 def shot():
     y = input("Select by coordinate Y: (from 19 to 0)\n")
@@ -140,21 +143,14 @@ def shot():
     x = input("Select by coordinate X: (from 20 to 0)\n")
     x = Main.verifier(x)
     background(y,x)
-    find(star) 
-    
+    if find(star) == "gameover":
+        return "gameover"
   
 
-shot()
-
-
-
-while True:
-    ans = input("Another one? [y] [n]\n")
-    if ans == 'y':
-        shot()
-    elif ans == 'n':
-        print("Goodbye!")
+while shot() != "gameover":
+    if shot() == "gameover":
         break
+
 
 
 
