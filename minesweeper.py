@@ -102,21 +102,23 @@ def mining(a,b):
         array = star
         print(array[i])
 
+
 def find(lst):
     new_lst = np.array(lst)
     var = '░'
     indices = np.where(new_lst == var)
     result = list(zip(indices[0],indices[1]))
     output = []
-
+    
     for element in result:
         output.append(list(element))
+
+
+    testcheck(output)
 
     comparelst = [[]]
     randomx = Main.randomnum(5)
     randomy = Main.randomnum(5)
-
-
     comparelst[0].append(randomx)
     comparelst[0].append(randomy)
 
@@ -137,6 +139,16 @@ def find(lst):
         else:
             print("No mines, keep going!")
 
+find.counter = 0
+
+def testcheck(var):
+    find.counter += 1
+    check = {}
+    for i in range(find.counter):
+        check[i] = len(var)
+        i += 1
+    print(check)
+
 def shot():
     y = input("Select by coordinate Y: (from 19 to 0)\n")
     y = Main.verifier(y)
@@ -150,7 +162,3 @@ def shot():
 while shot() != "gameover":
     if shot() == "gameover":
         break
-
-
-
-
