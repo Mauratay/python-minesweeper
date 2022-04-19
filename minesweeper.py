@@ -98,6 +98,7 @@ def background(y,x):
 
 def mining(a,b):
     star[a][b] = 'Ø'
+    
     for i in range(len(star)):
         array = star
         print(array[i])
@@ -113,8 +114,8 @@ def find(lst):
     for element in result:
         output.append(list(element))
 
-
-    testcheck(output)
+    checked = difference(output)
+    
 
     comparelst = [[]]
     randomx = Main.randomnum(5)
@@ -123,31 +124,41 @@ def find(lst):
     comparelst[0].append(randomy)
 
     for elem in comparelst:
-        if elem in output:
-            mining(elem[0],elem[1])
+        try:
+            if elem in output[:-checked]:
+                mining(elem[0],elem[1])
 
-            print("""
- ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
-██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
-██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
-██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗
-╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║
- ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
-            """)
-            return "gameover"     
+                print("""
+    ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
+    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
+    ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
+    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║   ██║╚██╗ ██╔╝██╔══╝  ██╔══██╗
+    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║
+    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
+                """)
+                return "gameover"     
 
-        else:
-            print("No mines, keep going!")
+            else:
+                print("No mines, keep going!")
+        except TypeError:
+            pass
 
 find.counter = 0
 
-def testcheck(var):
+def difference(var):
     find.counter += 1
     check = {}
     for i in range(find.counter):
         check[i] = len(var)
         i += 1
-    print(check)
+    div1 = list(check.values())
+    div2 = list(check.keys())
+    try: 
+        res = div1[-1]//div2[-1]
+        return res
+    except ZeroDivisionError:
+        pass
+    
 
 def shot():
     y = input("Select by coordinate Y: (from 19 to 0)\n")
