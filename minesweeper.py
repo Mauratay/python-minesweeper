@@ -26,13 +26,6 @@ class Main:
 # --------------------------------------
 
 star = Main.blueprint
-    
-def lefting(z):
-    ran = random.randint(0,10)
-    if z + ran > 20:
-        for i in range(ran):
-            z -= 1
-        return z
 
 def surround(y,x):
     ran = random.randint(0,10)
@@ -96,8 +89,7 @@ def mining(a,b,var):
         y = random.randint(0,20)
         if star[x][y] not in var:
             star[x][y] = '■'
-        
-
+            
     for i in range(len(star)):
         array = star
         print(array[i])
@@ -126,7 +118,7 @@ def find(lst):
         try:
             if elem in output[:-checked]:
                 mining(elem[0],elem[1],output)
-                
+                print(output)
                 print("""
     ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
     ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
