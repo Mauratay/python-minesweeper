@@ -22,27 +22,20 @@ class Main:
             raise Exception("Error number should be bigger than 0")
         else:
             return num
-    
-    def randomnum(x):
-        for i in range(x):
-            i += 1
-            i + 1
-            randnum = random.randint(1,i)
-        return randnum
 
 # --------------------------------------
 
 star = Main.blueprint
     
 def lefting(z):
-    ran = Main.randomnum(10)
+    ran = random.randint(0,10)
     if z + ran > 20:
         for i in range(ran):
             z -= 1
         return z
 
 def surround(y,x):
-    ran = Main.randomnum(10)
+    ran = random.randint(0,10)
     if x + ran > 20 and y + ran > 19:
         for i in range(ran):
             while x and y > 0 and x < 20 and y < 19:
@@ -96,9 +89,15 @@ def background(y,x):
 ╰━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━╯
     """)
 
-def mining(a,b):
-    star[a][b] = 'Ø'
-    
+def mining(a,b,var):
+    star[a][b] = '■'
+    for i in range(30):
+        x = random.randint(0,19)
+        y = random.randint(0,20)
+        if star[x][y] not in var:
+            star[x][y] = '■'
+        
+
     for i in range(len(star)):
         array = star
         print(array[i])
@@ -118,16 +117,16 @@ def find(lst):
     
 
     comparelst = [[]]
-    randomx = Main.randomnum(5)
-    randomy = Main.randomnum(5)
+    randomx = random.randint(0,5)
+    randomy = random.randint(0,5)
     comparelst[0].append(randomx)
     comparelst[0].append(randomy)
 
     for elem in comparelst:
         try:
             if elem in output[:-checked]:
-                mining(elem[0],elem[1])
-
+                mining(elem[0],elem[1],output)
+                
                 print("""
     ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
     ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
