@@ -101,12 +101,10 @@ def find(lst):
     
     for element in result:
         revealed.append(list(element))
-
-    checked = difference(revealed)
     
     mine_list = []
 
-    for i in range(30):
+    for i in range(20):
         x = random.randint(0,19)
         y = random.randint(0,20)
         doubles = []
@@ -116,10 +114,10 @@ def find(lst):
         i += 1
         
     for elem in mine_list:
-        try:
-            if elem in revealed[:-checked]:
-                mining(mine_list,revealed)
-                print("""
+        
+        if elem in revealed:
+            mining(mine_list,revealed)
+            print("""
     ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
     ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
     ██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝
@@ -127,27 +125,9 @@ def find(lst):
     ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║
     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
                 """)
-                return "gameover"     
-            else:
-                continue
-        except TypeError:
-            pass
+            return "gameover"     
 
-find.counter = 0
 
-def difference(var):
-    find.counter += 1
-    check = {}
-    for i in range(find.counter):
-        check[i] = len(var)
-        i += 1
-    div1 = list(check.values())
-    div2 = list(check.keys())
-    try: 
-        res = div1[-1]//div2[-1]
-        return res
-    except ZeroDivisionError:
-        pass
     
 
 def shot():
