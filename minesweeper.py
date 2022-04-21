@@ -82,13 +82,10 @@ def background(y,x):
 ╰━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━╯
     """)
 
-def mining(a,b,var):
-    star[a][b] = '■'
-    for i in range(30):
-        x = random.randint(0,19)
-        y = random.randint(0,20)
-        if star[x][y] not in var:
-            star[x][y] = '■'
+def mining(lst,lst2):
+    for item in lst:
+        if item not in lst2:
+            star[item[0]][item[1]] = '■'
             
     for i in range(len(star)):
         array = star
@@ -97,28 +94,31 @@ def mining(a,b,var):
 
 def find(lst):
     new_lst = np.array(lst)
-    var = '░'
+    var = '░' 
     indices = np.where(new_lst == var)
     result = list(zip(indices[0],indices[1]))
-    output = []
+    revealed = []
     
     for element in result:
-        output.append(list(element))
+        revealed.append(list(element))
 
-    checked = difference(output)
+    checked = difference(revealed)
     
+    mine_list = []
 
-    comparelst = [[]]
-    randomx = random.randint(0,5)
-    randomy = random.randint(0,5)
-    comparelst[0].append(randomx)
-    comparelst[0].append(randomy)
-
-    for elem in comparelst:
+    for i in range(30):
+        x = random.randint(0,19)
+        y = random.randint(0,20)
+        doubles = []
+        doubles.append(x)
+        doubles.append(y)
+        mine_list.append(doubles)
+        i += 1
+        
+    for elem in mine_list:
         try:
-            if elem in output[:-checked]:
-                mining(elem[0],elem[1],output)
-                print(output)
+            if elem in revealed[:-checked]:
+                mining(mine_list,revealed)
                 print("""
     ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗ 
     ██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗
@@ -128,9 +128,8 @@ def find(lst):
     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝
                 """)
                 return "gameover"     
-
             else:
-                print("No mines, keep going!")
+                continue
         except TypeError:
             pass
 
